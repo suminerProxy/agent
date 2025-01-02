@@ -22,7 +22,7 @@ fi
 # 1. 根据配置修改 SSH 配置，允许 root 用户直接登录
 if [ "$ALLOW_ROOT_LOGIN" == "true" ]; then
   echo "修改 SSH 配置，允许 root 用户直接登录..."
-  sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+  echo "PermitRootLogin yes" | sudo tee -a /etc/ssh/sshd_config
   systemctl restart sshd
 else
   echo "不允许 root 用户通过 SSH 直接登录。"
