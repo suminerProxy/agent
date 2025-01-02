@@ -1,0 +1,70 @@
+[wgcloud-agent]2025/01/02 23:35:39 WgcloudAgent.go:295: -------------agent核心配置参数-------------
+[wgcloud-agent]2025/01/02 23:35:39 WgcloudAgent.go:302: 给server端上报数据(主机指标)的频率: 120
+[wgcloud-agent]2025/01/02 23:35:39 WgcloudAgent.go:304: 进程、端口、docker监控间隔时间: 300
+[wgcloud-agent]2025/01/02 23:35:39 WgcloudAgent.go:306: 运行日志文件保留天数: 30
+[wgcloud-agent]2025/01/02 23:35:39 WgcloudAgent.go:308: 监控日志文件扫描间隔时间: 600
+[wgcloud-agent]2025/01/02 23:35:39 WgcloudAgent.go:310: 自定义监控项监控间隔时间: 600
+[wgcloud-agent]2025/01/02 23:35:39 WgcloudAgent.go:312: 带宽上下行速率指标监控的网卡名称(为空默认监控所有网卡): 
+[wgcloud-agent]2025/01/02 23:35:39 WgcloudAgent.go:320: 硬盘smart检测配置: no
+[wgcloud-agent]2025/01/02 23:35:39 WgcloudAgent.go:325: 是否允许执行下发指令: yes
+[wgcloud-agent]2025/01/02 23:35:39 WgcloudAgent.go:327: agent间隔多久从server获取一次下发指令: 300
+[wgcloud-agent]2025/01/02 23:35:39 WgcloudAgent.go:332: 是否监测异常进程: yes
+[wgcloud-agent]2025/01/02 23:35:39 WgcloudAgent.go:337: 是否采集主机所有进程信息: yes
+[wgcloud-agent]2025/01/02 23:35:39 WgcloudAgent.go:342: 是否监测用户登录信息: yes
+[wgcloud-agent]2025/01/02 23:35:39 WgcloudAgent.go:344: 是否监测GPU信息: nvidia-smi --query-gpu=utilization.gpu --format=csv
+[wgcloud-agent]2025/01/02 23:35:39 WgcloudAgent.go:346: 是否监测FireWall信息: 
+[wgcloud-agent]2025/01/02 23:35:39 WgcloudAgent.go:348: 是否监测Crontab信息: 
+[wgcloud-agent]2025/01/02 23:35:39 WgcloudAgent.go:350: 是否配置个性化采集命令: 
+[wgcloud-agent]2025/01/02 23:35:41 daemonUtil.go:104: 防篡改校验成功： 0
+[wgcloud-agent]2025/01/02 23:35:41 WgcloudAgent.go:548: Agent started successfully. v3.5.6 . ©2017-2025 www.wgstart.com . All rights reserved.
+[wgcloud-agent]2025/01/02 23:35:41 WgcloudAgent.go:549: serverUrl: http://43.136.243.165:9999
+[wgcloud-agent]2025/01/02 23:35:41 WgcloudAgent.go:550: bindIp: 10.3.4.9
+[wgcloud-agent]2025/01/02 23:35:41 WgcloudAgent.go:551: 如果出现 [ GetHostTemperatures err:] 错误信息，请忽略即可，它没有影响，这只是某些平台不支持获取CPU温度
+[wgcloud-agent]2025/01/02 23:35:44 WgcloudAgent.go:89: 主机监控信息上报server开始
+[wgcloud-agent]2025/01/02 23:35:45 WgcloudAgent.go:98: 主机监控信息上报server返回信息: {"result":"success"}
+[wgcloud-agent]2025/01/02 23:35:47 gpuUtil.go:38: 开始执行GPU采集: nvidia-smi --query-gpu=utilization.gpu --format=csv
+[wgcloud-agent]2025/01/02 23:35:47 gpuUtil.go:54: GPU采集error: bash: line 1: nvidia-smi: command not found
+
+[wgcloud-agent]2025/01/02 23:35:47 gpuUtil.go:81: execute command error: exit status 127
+[wgcloud-agent]2025/01/02 23:35:47 fireWallUtil.go:52: 开始执行防火墙状态采集: sudo ufw status
+[wgcloud-agent]2025/01/02 23:35:47 fireWallUtil.go:77: 防火墙状态采集结果: Status: inactive
+
+[wgcloud-agent]2025/01/02 23:35:47 fireWallUtil.go:92: 防火墙状态采集执行success
+[wgcloud-agent]2025/01/02 23:35:47 crontabUtil.go:42: 开始执行crontab状态采集: cat /etc/crontab
+[wgcloud-agent]2025/01/02 23:35:47 crontabUtil.go:63: crontab采集结果: # /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+# You can also override PATH, but by default, newer versions inherit it from the environment
+#PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  * user-name command to be executed
+17 *	* * *	root	cd / && run-parts --report /etc/cron.hourly
+25 6	* * *	root	test -x /usr/sbin/anacron || { cd / && run-parts --report /etc/cron.daily; }
+47 6	* * 7	root	test -x /usr/sbin/anacron || { cd / && run-parts --report /etc/cron.weekly; }
+52 6	1 * *	root	test -x /usr/sbin/anacron || { cd / && run-parts --report /etc/cron.monthly; }
+#
+
+[wgcloud-agent]2025/01/02 23:35:47 crontabUtil.go:78: crontab采集执行success
+[wgcloud-agent]2025/01/02 23:37:44 WgcloudAgent.go:89: 主机监控信息上报server开始
+[wgcloud-agent]2025/01/02 23:37:44 WgcloudAgent.go:98: 主机监控信息上报server返回信息: {"result":"success"}
+[wgcloud-agent]2025/01/02 23:39:44 WgcloudAgent.go:89: 主机监控信息上报server开始
+[wgcloud-agent]2025/01/02 23:39:44 WgcloudAgent.go:98: 主机监控信息上报server返回信息: {"result":"success"}
+[wgcloud-agent]2025/01/02 23:40:41 shellInfo.go:58: 请求server下发指令返回结果:{"code":"0","msg":"","data":[]}
+[wgcloud-agent]2025/01/02 23:41:13 WgcloudAgent.go:436: 请求server监控进程返回结果:{"code":"0","msg":"","data":[]}
+[wgcloud-agent]2025/01/02 23:41:13 WgcloudAgent.go:438: 请求server监控docker返回结果:{"code":"0","msg":"","data":[]}
+[wgcloud-agent]2025/01/02 23:41:13 WgcloudAgent.go:440: 请求server监控端口返回结果:{"code":"0","msg":"","data":[]}
+[wgcloud-agent]2025/01/02 23:41:13 WgcloudAgent.go:442: 请求server监控日志返回结果:{"code":"0","msg":"","data":[]}
+[wgcloud-agent]2025/01/02 23:41:14 WgcloudAgent.go:444: 请求server文件防篡改监测信息返回结果:{"code":"0","msg":"","data":[]}
+[wgcloud-agent]2025/01/02 23:41:14 WgcloudAgent.go:447: 请求server自定义监控项信息返回结果:{"code":"0","msg":"","data":[]}
+[wgcloud-agent]2025/01/02 23:41:14 loginUtil.go:49: 从server端获取服务器登录提醒通知开关: true
